@@ -32,12 +32,22 @@ export default function Hero() {
         <p className="text-lg md:text-xl max-w-2xl mx-auto px-6 opacity-90">
           Всё для настоящей рыбалки — снасти, приманки и снаряжение от лучших мировых брендов
         </p>
-        <a
-          href="#catalog"
-          className="inline-block mt-8 px-8 py-3 bg-white text-black uppercase tracking-wide text-sm font-semibold hover:bg-neutral-200 transition-colors duration-300"
-        >
-          Смотреть каталог
-        </a>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <a
+            href="#catalog"
+            className="inline-block px-8 py-3 bg-white text-black uppercase tracking-wide text-sm font-semibold hover:bg-neutral-200 transition-colors duration-300"
+          >
+            Смотреть каталог
+          </a>
+          <a
+            href="https://t.me/Drew_Pn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-3 bg-transparent text-white border border-white uppercase tracking-wide text-sm font-semibold hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Написать в Telegram
+          </a>
+        </div>
       </div>
     </div>
   );
