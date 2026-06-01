@@ -67,26 +67,35 @@ const catalog = [
 function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60"
       onClick={onClose}
     >
       <div
-        className="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white w-full sm:max-w-2xl sm:mx-4 max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex">
-          <div className="w-1/2 shrink-0 hidden sm:block">
+        {/* Мобильная шапка */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-100 sm:hidden sticky top-0 bg-white z-10">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-neutral-400">{product.brand}</p>
+            <p className="font-semibold text-neutral-900 text-sm leading-snug">{product.name}</p>
+          </div>
+          <button onClick={onClose} className="text-neutral-400 text-2xl leading-none p-1">×</button>
+        </div>
+
+        <div className="flex flex-col sm:flex-row">
+          <div className="w-full sm:w-1/2 sm:shrink-0 aspect-square sm:aspect-auto">
             <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
           </div>
-          <div className="flex flex-col p-6 gap-4 flex-1">
-            <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-col p-5 sm:p-6 gap-4 flex-1">
+            {/* Десктопная шапка */}
+            <div className="hidden sm:flex items-start justify-between gap-2">
               <div>
                 <p className="text-xs uppercase tracking-widest text-neutral-400 mb-1">{product.brand}</p>
                 <h3 className="text-lg font-bold text-neutral-900 leading-snug">{product.name}</h3>
               </div>
               <button onClick={onClose} className="text-neutral-400 hover:text-neutral-900 text-2xl leading-none shrink-0">×</button>
             </div>
-            <img src={product.image} alt={product.name} className="w-full aspect-square object-cover sm:hidden" />
             <div>
               <p className="text-xs uppercase tracking-widest text-neutral-400 mb-1">О товаре</p>
               <p className="text-sm text-neutral-700 leading-relaxed">{product.details}</p>
@@ -95,7 +104,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
               <p className="text-xs uppercase tracking-widest text-neutral-400 mb-1">Применение</p>
               <p className="text-sm text-neutral-700 leading-relaxed">{product.usage}</p>
             </div>
-            <div className="mt-auto pt-4 border-t border-neutral-100 flex items-center justify-between gap-3">
+            <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-3">
               <span className="text-2xl font-bold text-neutral-900">
                 {product.price.toLocaleString("ru-RU")} ₽
               </span>
@@ -103,7 +112,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
                 href={product.ozon_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 text-sm uppercase tracking-wide text-white bg-[#005BFF] hover:bg-[#0047CC] transition-colors duration-200"
+                className="px-5 py-3 text-sm uppercase tracking-wide text-white bg-[#005BFF] hover:bg-[#0047CC] transition-colors duration-200"
               >
                 Купить на Озон
               </a>
@@ -123,20 +132,21 @@ export default function PriceCatalog() {
   const filtered = activeCategory === "Все" ? catalog : catalog.filter((s) => s.category === activeCategory);
 
   return (
-    <section id="prices" className="bg-white py-24 px-6">
+    <section id="prices" className="bg-white py-14 sm:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <p className="uppercase text-neutral-500 text-sm tracking-widest mb-4">Цены</p>
-        <h2 className="text-neutral-900 text-4xl lg:text-6xl font-bold mb-4 leading-tight">
+        <p className="uppercase text-neutral-500 text-xs sm:text-sm tracking-widest mb-3">Цены</p>
+        <h2 className="text-neutral-900 text-3xl sm:text-4xl lg:text-6xl font-bold mb-3 leading-tight">
           Каталог товаров
         </h2>
-        <p className="text-neutral-500 mb-10 text-lg">Средний ценовой сегмент · Актуальные цены · Доставка по России</p>
+        <p className="text-neutral-500 mb-8 text-sm sm:text-lg">Средний ценовой сегмент · Актуальные цены · Доставка по России</p>
 
-        <div className="flex flex-wrap gap-2 mb-16">
+        {/* Фильтры — горизонтальный скролл на мобиле */}
+        <div className="flex gap-2 mb-10 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 text-sm uppercase tracking-wide border transition-colors duration-150 ${
+              className={`px-3 sm:px-4 py-2 text-xs sm:text-sm uppercase tracking-wide border whitespace-nowrap transition-colors duration-150 shrink-0 ${
                 activeCategory === cat
                   ? "bg-neutral-900 text-white border-neutral-900"
                   : "bg-white text-neutral-500 border-neutral-200 hover:border-neutral-400 hover:text-neutral-900"
@@ -147,19 +157,19 @@ export default function PriceCatalog() {
           ))}
         </div>
 
-        <div className="flex flex-col gap-20">
+        <div className="flex flex-col gap-12 sm:gap-20">
           {filtered.map((section) => (
             <div key={section.category}>
-              <div className="flex items-center gap-3 mb-8 border-b border-neutral-100 pb-4">
-                <span className="text-2xl">{section.emoji}</span>
-                <h3 className="text-xl font-bold uppercase tracking-wide text-neutral-900">{section.category}</h3>
+              <div className="flex items-center gap-3 mb-5 sm:mb-8 border-b border-neutral-100 pb-3 sm:pb-4">
+                <span className="text-xl sm:text-2xl">{section.emoji}</span>
+                <h3 className="text-base sm:text-xl font-bold uppercase tracking-wide text-neutral-900">{section.category}</h3>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {section.products.map((product) => (
                   <div
                     key={product.name}
                     onClick={() => setSelected(product)}
-                    className="border border-neutral-100 flex flex-col hover:border-neutral-300 hover:shadow-md transition-all duration-200 cursor-pointer group"
+                    className="border border-neutral-100 flex flex-col hover:border-neutral-300 hover:shadow-md transition-all duration-200 cursor-pointer group active:scale-95"
                   >
                     <div className="aspect-square overflow-hidden bg-neutral-50 relative">
                       <img
@@ -167,23 +177,23 @@ export default function PriceCatalog() {
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 hidden sm:flex items-center justify-center">
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-sm uppercase tracking-wide bg-black/60 px-3 py-1.5">
                           Подробнее
                         </span>
                       </div>
                     </div>
-                    <div className="p-5 flex flex-col gap-2 flex-1">
+                    <div className="p-3 sm:p-5 flex flex-col gap-1 sm:gap-2 flex-1">
                       <div>
-                        <p className="text-xs uppercase tracking-widest text-neutral-400 mb-1">{product.brand}</p>
-                        <p className="font-semibold text-neutral-900 leading-snug">{product.name}</p>
+                        <p className="text-xs uppercase tracking-widest text-neutral-400 mb-0.5 truncate">{product.brand}</p>
+                        <p className="font-semibold text-neutral-900 leading-snug text-sm sm:text-base line-clamp-2">{product.name}</p>
                       </div>
-                      <p className="text-sm text-neutral-500 leading-relaxed flex-1">{product.description}</p>
-                      <div className="flex items-center justify-between mt-auto pt-3 border-t border-neutral-100">
-                        <span className="text-lg font-bold text-neutral-900">
+                      <p className="text-xs sm:text-sm text-neutral-500 leading-relaxed flex-1 line-clamp-2 hidden sm:block">{product.description}</p>
+                      <div className="flex items-center justify-between mt-auto pt-2 sm:pt-3 border-t border-neutral-100">
+                        <span className="text-base sm:text-lg font-bold text-neutral-900">
                           {product.price.toLocaleString("ru-RU")} ₽
                         </span>
-                        <span className="text-xs text-neutral-400 uppercase tracking-wide">Нажми →</span>
+                        <span className="text-xs text-neutral-400 uppercase tracking-wide">→</span>
                       </div>
                     </div>
                   </div>
@@ -193,16 +203,16 @@ export default function PriceCatalog() {
           ))}
         </div>
 
-        <div className="mt-16 bg-neutral-950 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="mt-10 sm:mt-16 bg-neutral-950 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
           <div>
-            <p className="text-white text-xl font-bold mb-1">Не нашли нужный товар?</p>
+            <p className="text-white text-lg sm:text-xl font-bold mb-1">Не нашли нужный товар?</p>
             <p className="text-neutral-400 text-sm">Напишите нам — подберём под ваш запрос и бюджет</p>
           </div>
           <a
             href="https://t.me/Drew_Pn"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-white text-black uppercase tracking-wide text-sm font-semibold hover:bg-neutral-200 transition-colors duration-300 shrink-0"
+            className="w-full sm:w-auto text-center px-8 py-3 bg-white text-black uppercase tracking-wide text-sm font-semibold hover:bg-neutral-200 transition-colors duration-300 shrink-0"
           >
             Написать в Telegram
           </a>
