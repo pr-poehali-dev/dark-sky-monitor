@@ -25,11 +25,11 @@ export default function Promo() {
         </motion.div>
       </div>
 
-      <h3 className="absolute top-12 right-6 text-white uppercase z-10 text-sm md:text-base lg:text-lg">
+      <h3 className="absolute top-6 sm:top-12 right-4 sm:right-6 text-white uppercase z-10 text-xs sm:text-sm md:text-base lg:text-lg">
         Тысячи товаров в наличии
       </h3>
 
-      <p className="absolute bottom-12 right-6 text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-5xl z-10">
+      <p className="absolute bottom-6 sm:bottom-12 left-4 right-4 sm:left-auto sm:right-6 text-white text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-5xl z-10 leading-snug">
         Приманки на любой вкус, для любого водоёма и сезона. Найди свою идеальную снасть и выходи на рекордный улов.
       </p>
     </div>

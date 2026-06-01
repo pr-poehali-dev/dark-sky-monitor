@@ -27,27 +27,27 @@ const categories = [
 
 export default function Catalog() {
   return (
-    <section id="catalog" className="bg-neutral-950 py-24 px-6">
+    <section id="catalog" className="bg-neutral-950 py-12 sm:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <p className="uppercase text-neutral-500 text-sm tracking-widest mb-4">Каталог</p>
-        <h2 className="text-white text-4xl lg:text-6xl font-bold mb-16 leading-tight">
+        <p className="uppercase text-neutral-500 text-xs sm:text-sm tracking-widest mb-3 sm:mb-4">Каталог</p>
+        <h2 className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold mb-8 sm:mb-16 leading-tight">
           Всё для рыбалки<br />в одном месте
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-800">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-800">
           {categories.map((cat) => (
             <div
               key={cat.title}
-              className="bg-neutral-950 p-8 flex flex-col gap-6 hover:bg-neutral-900 transition-colors duration-300 group cursor-pointer"
+              className="bg-neutral-950 p-4 sm:p-8 flex flex-col gap-3 sm:gap-6 hover:bg-neutral-900 transition-colors duration-300 group cursor-pointer"
             >
-              <span className="text-4xl">{cat.emoji}</span>
+              <span className="text-2xl sm:text-4xl">{cat.emoji}</span>
               <div>
-                <h3 className="text-white text-xl font-bold mb-2">{cat.title}</h3>
-                <p className="text-neutral-500 text-sm leading-relaxed">{cat.description}</p>
+                <h3 className="text-white text-base sm:text-xl font-bold mb-1 sm:mb-2">{cat.title}</h3>
+                <p className="text-neutral-500 text-xs sm:text-sm leading-relaxed hidden sm:block">{cat.description}</p>
               </div>
               <ul className="flex flex-col gap-1 mt-auto">
                 {cat.items.map((item) => (
-                  <li key={item} className="text-neutral-400 text-sm flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full bg-neutral-600 inline-block" />
+                  <li key={item} className="text-neutral-400 text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
+                    <span className="w-1 h-1 rounded-full bg-neutral-600 inline-block shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -56,9 +56,9 @@ export default function Catalog() {
                 href="https://t.me/Drew_Pn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 text-white text-sm uppercase tracking-wide border-b border-neutral-700 pb-1 w-fit group-hover:border-white transition-colors duration-300"
+                className="mt-1 sm:mt-2 text-white text-xs sm:text-sm uppercase tracking-wide border-b border-neutral-700 pb-1 w-fit group-hover:border-white transition-colors duration-300"
               >
-                Узнать цены →
+                Узнать →
               </a>
             </div>
           ))}
