@@ -117,6 +117,10 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
 export default function PriceCatalog() {
   const [selected, setSelected] = useState<Product | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("Все");
+
+  const categories = ["Все", ...catalog.map((s) => s.category)];
+  const filtered = activeCategory === "Все" ? catalog : catalog.filter((s) => s.category === activeCategory);
 
   return (
     <section id="prices" className="bg-white py-24 px-6">
@@ -125,10 +129,26 @@ export default function PriceCatalog() {
         <h2 className="text-neutral-900 text-4xl lg:text-6xl font-bold mb-4 leading-tight">
           Каталог товаров
         </h2>
-        <p className="text-neutral-500 mb-16 text-lg">Средний ценовой сегмент · Актуальные цены · Доставка по России</p>
+        <p className="text-neutral-500 mb-10 text-lg">Средний ценовой сегмент · Актуальные цены · Доставка по России</p>
+
+        <div className="flex flex-wrap gap-2 mb-16">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-2 text-sm uppercase tracking-wide border transition-colors duration-150 ${
+                activeCategory === cat
+                  ? "bg-neutral-900 text-white border-neutral-900"
+                  : "bg-white text-neutral-500 border-neutral-200 hover:border-neutral-400 hover:text-neutral-900"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
         <div className="flex flex-col gap-20">
-          {catalog.map((section) => (
+          {filtered.map((section) => (
             <div key={section.category}>
               <div className="flex items-center gap-3 mb-8 border-b border-neutral-100 pb-4">
                 <span className="text-2xl">{section.emoji}</span>
